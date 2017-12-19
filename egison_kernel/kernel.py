@@ -80,8 +80,14 @@ class EgisonKernel(Kernel):
 
         if not silent:
             # Send standard output
-            stream_content = {'name': 'stdout', 'text': output}
-            self.send_response(self.iopub_socket, 'stream', stream_content)
+#            stream_content = {'name': 'stdout', 'text': output}
+#            self.send_response(self.iopub_socket, 'stream', stream_content)
+            
+#            content = {'data': { 'text/html': '{}'.format(output) }, 'metadata': {}}
+#            content = {'data': { 'text/html': '{}'.format('<math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mn>3</mn><mi>x</mi><mo>-</mo><mn>1</mn></mstyle></math>') }, 'metadata': {}}
+            content = {'data': { 'text/html': '{}'.format('$$' + output + '$$') }, 'metadata': {}}
+#            self.session.send(self.iopub_socket, 'execute_result', content)
+            self.send_response(self.iopub_socket, 'display_data', content)
 
         if interrupted:
             return {'status': 'abort', 'execution_count': self.execution_count}

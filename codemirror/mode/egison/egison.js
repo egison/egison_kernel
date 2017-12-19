@@ -2,7 +2,7 @@
  * Author: Satoshi Egi
  * Branched from Branched CodeMirror's Clojure mode branched from CodeMirror's Scheme mode (by Koh Zi Han, based on implementation by Koh Zi Chun)
  */
-CodeMirror.defineMode("clojure", function () {
+CodeMirror.defineMode("egison", function () {
     var BUILTIN = "builtin", COMMENT = "comment", STRING = "string", CHARACTER = "string-2",
         ATOM = "atom", NUMBER = "number", BRACKET = "bracket", KEYWORD = "keyword";
     var INDENT_WORD_SKIP = 2;

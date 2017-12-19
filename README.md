@@ -8,6 +8,8 @@ pip install egison_kernel
 python -m egison_kernel.install
 ```
 
+After that, copy `egison_kernel/codemirror/mode/egison/egison.js` to Jupyter's CodeMirror directory.
+
 ## How to use
 
 ```
