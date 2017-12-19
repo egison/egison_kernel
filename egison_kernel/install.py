@@ -9,7 +9,7 @@ from IPython.utils.tempdir import TemporaryDirectory
 kernel_json = {"argv":[sys.executable,"-m","egison_kernel", "-f", "{connection_file}"],
  "display_name":"Egison",
  "language":"egison",
- "codemirror_mode":"scheme",
+ "codemirror_mode":"egison",
  "env":{"PS1": "$"}
 }
 

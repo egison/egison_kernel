@@ -2,7 +2,7 @@
 
 # ===== DEFINITIONS =====
 
-from IPython.kernel.zmq.kernelbase import Kernel
+from ipykernel.kernelbase import Kernel
 from pexpect import replwrap, EOF
 from subprocess import check_output
 
@@ -35,7 +35,7 @@ class EgisonKernel(Kernel):
 
 
     language_info = {'name': 'egison',
-                     'codemirror_mode': 'scheme',
+                     'codemirror_mode': 'egison',
                      'mimetype': 'text/plain',
                      'file_extension': '.egi'}
 
