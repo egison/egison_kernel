@@ -53,7 +53,7 @@ class EgisonKernel(Kernel):
         sig = signal.signal(signal.SIGINT, signal.SIG_DFL)
         prompt = uuid.uuid4().hex + ">"
         try:
-            self.egisonwrapper = replwrap.REPLWrapper("egison --prompt " + prompt, 
+            self.egisonwrapper = replwrap.REPLWrapper("egison -M latex --prompt " + prompt, 
                 unicode(prompt), None)
         finally:
             signal.signal(signal.SIGINT, sig)
@@ -79,9 +79,16 @@ class EgisonKernel(Kernel):
             self._start_egison()
 
         if not silent:
-            content = {'data': { 'text/html': '{}'.format('$$' + output + '$$') }, 'metadata': {}}
-            self.send_response(self.iopub_socket, 'display_data', content)
+            moutput = re.match(r'\[#t "(.*)"\]', output)
+            if moutput:
+                content = {'data': { 'text/html': '{}'.format('$$' + moutput.group(1) + '$$') }, 'metadata': {}}
+                self.send_response(self.iopub_socket, 'display_data', content)
 
+            noutput = re.match(r'\[#f (.*)\]', output)
+            if noutput:
+                stream_content = {'name': 'stdout', 'text': noutput.group(1)}
+                self.send_response(self.iopub_socket, 'stream', stream_content)
+                
         if interrupted:
             return {'status': 'abort', 'execution_count': self.execution_count}
 
