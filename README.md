@@ -17,6 +17,8 @@ jupyter notebook
 # In the notebook interface, select Egison from the 'New' menu
 ```
 
+<img width="100%" src="https://raw.githubusercontent.com/egison/egison_kernel/master/images/RiemannCurvatureOfS2.png" />
+
 ## Acknowledgement
 
 I learned how to implement a Jupyter kernel from [bash_kernel](https://github.com/takluyver/bash_kernel).

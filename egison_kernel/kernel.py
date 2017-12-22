@@ -79,16 +79,14 @@ class EgisonKernel(Kernel):
             self._start_egison()
 
         if not silent:
-            moutput = re.match(r'\[#t "(.*)"\]', output)
+            moutput = re.match(r'\#latex\|(.*)\|\#', output)
             if moutput:
-                content = {'data': { 'text/html': '{}'.format('$$' + moutput.group(1) + '$$') }, 'metadata': {}}
+                content = {'execution_count': self.execution_count, 'data': { 'text/html': u'{}'.format(u'$$' + moutput.group(1) + u'$$') }, 'metadata': {}}
                 self.send_response(self.iopub_socket, 'display_data', content)
-
-            noutput = re.match(r'\[#f (.*)\]', output)
-            if noutput:
-                stream_content = {'name': 'stdout', 'text': noutput.group(1)}
+            else:
+                stream_content = {'execution_count': self.execution_count, 'name': 'stdout', 'text': output}
                 self.send_response(self.iopub_socket, 'stream', stream_content)
-                
+
         if interrupted:
             return {'status': 'abort', 'execution_count': self.execution_count}
 
