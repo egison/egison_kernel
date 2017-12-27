@@ -15,6 +15,7 @@ __version__ = '0.0.1'
 version_pat = re.compile(r'(\d+(\.\d+)+)')
 crlf_pat = re.compile(r'[\r\n]+')
 
+
 class EgisonKernel(Kernel):
     implementation = 'egison_kernel'
     implementation_version = __version__
@@ -28,22 +29,18 @@ class EgisonKernel(Kernel):
             self._language_version = m.group(1)
         return self._language_version
 
-
     @property
     def banner(self):
         return u'Simple Egison Kernel (Egison v%s)' % self.language_version
-
 
     language_info = {'name': 'egison',
                      'codemirror_mode': 'egison',
                      'mimetype': 'text/plain',
                      'file_extension': '.egi'}
 
-
     def __init__(self, **kwargs):
         Kernel.__init__(self, **kwargs)
         self._start_egison()
-
 
     def _start_egison(self):
         # Signal handlers are inherited by forked processes, and we can't easily
@@ -53,11 +50,10 @@ class EgisonKernel(Kernel):
         sig = signal.signal(signal.SIGINT, signal.SIG_DFL)
         prompt = uuid.uuid4().hex + ">"
         try:
-            self.egisonwrapper = replwrap.REPLWrapper("egison -M latex --prompt " + prompt, 
-                unicode(prompt), None)
+            self.egisonwrapper = replwrap.REPLWrapper("egison -M latex --prompt " + prompt,
+                                                      unicode(prompt), None)
         finally:
             signal.signal(signal.SIGINT, sig)
-
 
     def do_execute(self, code, silent, store_history=True,
                    user_expressions=None, allow_stdin=False):
@@ -81,7 +77,7 @@ class EgisonKernel(Kernel):
         if not silent:
             moutput = re.match(r'\#latex\|(.*)\|\#', output)
             if moutput:
-                content = {'execution_count': self.execution_count, 'data': { 'text/html': u'{}'.format(u'$$' + moutput.group(1) + u'$$') }, 'metadata': {}}
+                content = {'execution_count': self.execution_count, 'data': {'text/html': u'{}'.format(u'$$' + moutput.group(1) + u'$$')}, 'metadata': {}}
                 self.send_response(self.iopub_socket, 'display_data', content)
             else:
                 stream_content = {'execution_count': self.execution_count, 'name': 'stdout', 'text': output}
