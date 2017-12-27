@@ -7,6 +7,7 @@ setup(name='egison_kernel',
       install_requires=[
           'ipykernel',
           'pexpect',
+          'future'
       ],
       author='Satoshi Egi',
       author_email='egi@egison.org',

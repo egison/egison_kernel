@@ -5,6 +5,7 @@
 from ipykernel.kernelbase import Kernel
 from pexpect import replwrap, EOF
 from subprocess import check_output
+from builtins import str as text
 
 import re
 import signal
@@ -51,7 +52,7 @@ class EgisonKernel(Kernel):
         prompt = uuid.uuid4().hex + ">"
         try:
             self.egisonwrapper = replwrap.REPLWrapper("egison -M latex --prompt " + prompt,
-                                                      unicode(prompt), None)
+                                                      text(prompt), None)
         finally:
             signal.signal(signal.SIGINT, sig)
 
