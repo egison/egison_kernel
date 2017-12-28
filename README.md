@@ -2,10 +2,11 @@
 
 ## How to install
 
-```
+```sh
 git clone https://github.com/egison/egison_kernel.git
-pip install egison_kernel
-python -m egison_kernel.install
+cd egison_kernel
+pip install .  # install dependencies
+python -m egison_kernel.install  # install Egison kernel itself
 ```
 
 After that, copy `egison_kernel/codemirror/mode/egison/egison.js` to Jupyter's CodeMirror directory.
