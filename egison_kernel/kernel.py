@@ -58,7 +58,7 @@ class EgisonKernel(Kernel):
 
     def do_execute(self, code, silent, store_history=True,
                    user_expressions=None, allow_stdin=False):
-        code = crlf_pat.sub(' ', code.strip())
+        code = crlf_pat.sub('#newline', code.strip())
         if not code:
             return {'status': 'ok', 'execution_count': self.execution_count,
                     'payload': [], 'user_expressions': {}}
